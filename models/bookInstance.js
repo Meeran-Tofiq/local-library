@@ -22,4 +22,4 @@ const BookInstanceSchema = new Schema({
 	},
 });
 
-module.exports = BookInstanceSchema;
+module.exports = mongoose.model("BookInstance", BookInstanceSchema);
