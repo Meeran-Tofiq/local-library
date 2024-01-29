@@ -7,7 +7,7 @@ const BookSchema = new Schema({
 	auhtor: { type: Schema.Types.ObjectId, ref: "Author", required: true },
 	summary: { type: String, required: true },
 	isbn: { type: String, required: true },
-	genre: { type: Schema.Types.ObjectId, ref: "Genre", requried: true },
+	genre: [{ type: Schema.Types.ObjectId, ref: "Genre" }],
 
 	virtuals: {
 		url: {
