@@ -28,16 +28,30 @@ const AuthorSchema = new Schema(
 					return `/catalog/authors/${this._id}`;
 				},
 			},
+			date_of_birth_formatted: {
+				get() {
+					return this.date_of_birth
+						? DateTime.fromJSDate(
+								this.date_of_birth
+						  ).toLocaleString(DateTime.DATE_MED)
+						: " ";
+				},
+			},
+			date_of_death_formatted: {
+				get() {
+					return this.date_of_death
+						? DateTime.fromJSDate(
+								this.date_of_death
+						  ).toLocaleString(DateTime.DATE_MED)
+						: " ";
+				},
+			},
 			lifespan: {
 				get() {
 					return (
-						DateTime.fromJSDate(this.date_of_birth).toLocaleString(
-							DateTime.DATE_MED
-						) +
+						this.date_of_birth_formatted +
 						" - " +
-						DateTime.fromJSDate(this.date_of_death).toLocaleString(
-							DateTime.DATE_MED
-						)
+						this.date_of_death_formatted
 					);
 				},
 			},
