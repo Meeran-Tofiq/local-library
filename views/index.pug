@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the main page of the LocalLibrary web page. 
+  | It is designed to showcase skills and knowledge regarding 
+  | Express, Mongoose, Pug, and the MVC framework for 
+  | developing applications.
+
+  br
+  br
+  br
+
+  h1 Dynamic content
+
+  p The library has the following record counts:
+
+  ul
+    li #[strong Books:] !{book_count}
+    li #[strong Copies:] !{book_instance_count}
+    li #[strong Copies available:] !{book_instance_available_count}
+    li #[strong Authors:] !{author_count}
+    li #[strong Genres:] !{genre_count}
