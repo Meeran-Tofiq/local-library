@@ -15,6 +15,6 @@ block content
           else
             span.text-warning #{copy.status}
           if copy.status === 'Available'
-            span (Due: #{copy.due_back})
+            span (Due: #{copy.due_back_formatted})
   else 
     p There are no copies of books currently in the library
