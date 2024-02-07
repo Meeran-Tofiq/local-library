@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-const connectionString = require("./util/credentials");
+const mongoDB = require("./util/credentials");
 
 var indexRouter = require("./routes/index");
 var catalogRouter = require("./routes/catalog");
@@ -13,7 +13,7 @@ var app = express();
 
 main().catch((err) => console.log(err));
 async function main() {
-	// await mongoose.connect(mongoDB);
+	await mongoose.connect(mongoDB);
 }
 
 // view engine setup
