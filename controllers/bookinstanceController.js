@@ -27,7 +27,7 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
 
 	res.render("bookinstance_detail", {
 		title: "Book Instance Detail",
-		book_instance: bookInstance,
+		bookinstance: bookInstance,
 	});
 });
 
