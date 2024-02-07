@@ -26,7 +26,7 @@ exports.author_detail = asyncHandler(async (req, res, next) => {
 		return next(err);
 	}
 
-	const authorExists = Author.findOne({
+	const authorExists = await Author.findOne({
 		first_name: req.body.first_name,
 		family_name: req.body.family_name,
 	})
