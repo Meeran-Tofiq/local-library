@@ -1,0 +1,20 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  if all_book_instances.length 
+    ul 
+      each copy in all_book_instances 
+        li 
+          a(href=copy.url) #{copy.book.title} : #{copy.imprtint} -&nbsp;
+          if copy.status === 'Available'
+            span.text-success #{copy.status}
+          else if copy.status === 'Maintenance'
+            span.text-danger #{copy.status}
+          else
+            span.text-warning #{copy.status}
+          if copy.status === 'Available'
+            span (Due: #{copy.due_back})
+  else 
+    p There are no copies of books currently in the library
