@@ -29,6 +29,11 @@ const BookInstanceSchema = new Schema(
 					);
 				},
 			},
+			due_back_yyyy_mm_dd: {
+				get() {
+					return DateTime.fromJSDate(this.due_back).toISODate();
+				},
+			},
 		},
 	}
 );
