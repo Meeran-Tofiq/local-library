@@ -43,7 +43,7 @@ router.get("/author/:id/delete", authorController.author_delete_get);
 
 router.post("/author/:id/delete", authorController.author_delete_post);
 
-router.get("/author/:id", authorController.author_detail);
+router.get("/authors/:id", authorController.author_detail);
 
 /// BOOK INSTANCE ROUTES ///
 
