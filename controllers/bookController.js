@@ -110,7 +110,7 @@ exports.book_create_post = [
 			isbn: req.body.isbn,
 		});
 
-		if (!errors.length) {
+		if (!errors.isEmpty()) {
 			const [allAuthors, allGenres] = await Promise.all([
 				Author.find().sort({ family_name: 1 }).exec(),
 				Genre.find().sort({ name: 1 }).exec(),
