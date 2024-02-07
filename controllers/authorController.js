@@ -26,6 +26,18 @@ exports.author_detail = asyncHandler(async (req, res, next) => {
 		return next(err);
 	}
 
+	const authorExists = Author.findOne({
+		first_name: req.body.first_name,
+		family_name: req.body.family_name,
+	})
+		.collation({ locale: "en", strength: 2 })
+		.exec();
+
+	if (authorExists) {
+		res.redirect(authorExists.url);
+		return;
+	}
+
 	res.render("author_detail", {
 		title: "Author Detail",
 		author,
