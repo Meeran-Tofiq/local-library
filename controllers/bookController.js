@@ -165,7 +165,7 @@ exports.book_delete_post = asyncHandler(async (req, res, next) => {
 		BookInstance.find({ book: req.params.id }).exec(),
 	]);
 
-	if (alllBookInstances.length > 0) {
+	if (allBookInstances.length > 0) {
 		res.render("book_delete", {
 			title: "Delete Book",
 			book,
