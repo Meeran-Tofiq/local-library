@@ -11,7 +11,7 @@ block content
     div(style='margin-left:20px;margin-top:20px')
       h4 Book Instances
       dl
-        each bookinstance in author_books
+        each bookinstance in bookinstance_list
           dt
             a(href=bookinstance.url) #{bookinstance.imprint}
           dd #{bookinstance.due_back_formatted}
