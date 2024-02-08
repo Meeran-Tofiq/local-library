@@ -205,6 +205,69 @@ exports.book_update_get = asyncHandler(async (req, res, next) => {
 });
 
 // Handle book update on POST.
-exports.book_update_post = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Book update POST");
-});
+exports.book_update_post = [
+	(req, res, next) => {
+		if (!Array.isArray(req.body.genre)) {
+			req.body.genre =
+				typeof req.body.genre === "undefined" ? [] : [req.body.genre];
+		}
+		next();
+	},
+
+	body("title", "Title must not be empty.")
+		.trim()
+		.isLength({ min: 1 })
+		.escape(),
+	body("author", "Author must not be empty.")
+		.trim()
+		.isLength({ min: 1 })
+		.escape(),
+	body("summary", "Summary must not be empty.")
+		.trim()
+		.isLength({ min: 1 })
+		.escape(),
+	body("isbn", "ISBN must not be empty").trim().isLength({ min: 1 }).escape(),
+	body("genre.*").escape(),
+
+	asyncHandler(async (req, res, next) => {
+		const errors = validationResult(req);
+
+		const book = new Book({
+			title: req.body.title,
+			author: req.body.author,
+			summary: req.body.summary,
+			isbn: req.body.isbn,
+			genre: typeof req.body.genre === "undefined" ? [] : req.body.genre,
+			_id: req.params.id, // This is required, or a new ID will be assigned!
+		});
+
+		if (!errors.isEmpty()) {
+			const [allAuthors, allGenres] = await Promise.all([
+				Author.find().sort({ family_name: 1 }).exec(),
+				Genre.find().sort({ name: 1 }).exec(),
+			]);
+
+			for (const genre of allGenres) {
+				if (book.genre.indexOf(genre._id) > -1) {
+					genre.checked = "true";
+				}
+			}
+			res.render("book_form", {
+				title: "Update Book",
+				authors: allAuthors,
+				genres: allGenres,
+				book: book,
+				errors: errors.array(),
+			});
+			return;
+		}
+
+		const updatedBook = await Book.findByIdAndUpdate(
+			req.params.id,
+			book,
+			{}
+		);
+
+		res.redirect(updatedBook.url);
+	}),
+];
