@@ -99,7 +99,20 @@ exports.author_create_post = [
 
 // Display Author delete form on GET.
 exports.author_delete_get = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: Author delete GET");
+	const [author, allBooksByAuthor] = await Promise.all([
+		Author.findById(req.params.id).exec(),
+		Book.find({ author: req.params.id }).exec(),
+	]);
+
+	if (!author) {
+		res.redirect("/catalog/authors");
+	}
+
+	res.render("author_delete", {
+		title: "Delete Author",
+		author,
+		author_books: allBooksByAuthor,
+	});
 });
 
 // Handle Author delete on POST.
