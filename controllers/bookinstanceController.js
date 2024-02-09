@@ -122,6 +122,7 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
 		title: "Update Book Copy",
 		bookinstance,
 		book_list,
+		selected_book: bookinstance.book._id,
 	});
 });
 
@@ -157,6 +158,7 @@ exports.bookinstance_update_post = [
 				bookinstance,
 				book_list,
 				errors: errors.array(),
+				selected_book: bookinstance.book._id,
 			});
 			return;
 		}
