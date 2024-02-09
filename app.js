@@ -4,10 +4,14 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-const mongoDB = require("./util/credentials");
 
 var indexRouter = require("./routes/index");
 var catalogRouter = require("./routes/catalog");
+
+const devDB =
+	"mongodb+srv://Meran:f04437B7WT163vyn@locallibrary.vgpsmoy.mongodb.net/local_library?retryWrites=true&w=majority";
+
+const mongoDB = process.env.MONGO_URI || devDB;
 
 var app = express();
 
