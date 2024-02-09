@@ -31,17 +31,17 @@ router.get("/book/:id", bookController.book_detail);
 
 router.get("/authors", authorController.author_list);
 
-router.get("/author/create", authorController.author_create_get);
+router.get("/authors/create", authorController.author_create_get);
 
-router.post("/author/create", authorController.author_create_post);
+router.post("/authors/create", authorController.author_create_post);
 
-router.get("/author/:id/update", authorController.author_update_get);
+router.get("/authors/:id/update", authorController.author_update_get);
 
-router.post("/author/:id/update", authorController.author_update_post);
+router.post("/authors/:id/update", authorController.author_update_post);
 
-router.get("/author/:id/delete", authorController.author_delete_get);
+router.get("/authors/:id/delete", authorController.author_delete_get);
 
-router.post("/author/:id/delete", authorController.author_delete_post);
+router.post("/authors/:id/delete", authorController.author_delete_post);
 
 router.get("/authors/:id", authorController.author_detail);
 
