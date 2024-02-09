@@ -120,12 +120,51 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
 
 	res.render("bookinstance_form", {
 		title: "Update Book Copy",
-		book_list,
 		bookinstance,
+		book_list,
 	});
 });
 
 // Handle bookinstance update on POST.
-exports.bookinstance_update_post = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: BookInstance update POST");
-});
+exports.bookinstance_update_post = [
+	body("book", "Book must be specified").trim().isLength({ min: 1 }).escape(),
+	body("imprint", "Imprint must be specified")
+		.trim()
+		.isLength({ min: 1 })
+		.escape(),
+	body("status").escape(),
+	body("due_back", "Invalid date")
+		.optional({ values: "falsy" })
+		.isISO8601()
+		.toDate(),
+
+	asyncHandler(async (req, res, next) => {
+		const errors = validationResult(req);
+
+		const bookinstance = new BookInstance({
+			_id: req.params.id,
+			book: req.body.book,
+			imprint: req.body.imprint,
+			status: req.body.status,
+			due_back: req.body.due_back,
+		});
+
+		if (!errors.isEmpty()) {
+			const book_list = await Book.find({}, "title").exec();
+
+			res.render("bookinstance_form", {
+				title: "Update Book Copy",
+				bookinstance,
+				book_list,
+			});
+			return;
+		}
+
+		const updatedBookinstance = await BookInstance.findByIdAndUpdate(
+			req.params.id,
+			bookinstance,
+			{}
+		);
+		res.redirect(updatedBookinstance.url);
+	}),
+];
