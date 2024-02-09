@@ -92,7 +92,7 @@ exports.author_create_post = [
 			return;
 		}
 
-		const authorExists = await Author.find({
+		const authorExists = await Author.findOne({
 			first_name: req.body.first_name,
 			family_name: req.body.family_name,
 		}).exec();
