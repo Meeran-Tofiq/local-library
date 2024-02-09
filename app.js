@@ -8,6 +8,7 @@ var mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var catalogRouter = require("./routes/catalog");
 const compression = require("compression");
+const helmet = require("helmet");
 
 const devDB =
 	"mongodb+srv://Meran:f04437B7WT163vyn@locallibrary.vgpsmoy.mongodb.net/local_library?retryWrites=true&w=majority";
@@ -27,6 +28,13 @@ app.set("view engine", "pug");
 
 app.use(logger("dev"));
 app.use(express.json());
+app.use(
+	helmet.contentSecurityPolicy({
+		directives: {
+			"script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+		},
+	})
+);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
