@@ -10,6 +10,12 @@ var catalogRouter = require("./routes/catalog");
 const compression = require("compression");
 const helmet = require("helmet");
 
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+	windowMs: 1 * 60 * 1000, // 1 minute
+	max: 20,
+});
+
 const devDB =
 	"mongodb+srv://Meran:f04437B7WT163vyn@locallibrary.vgpsmoy.mongodb.net/local_library?retryWrites=true&w=majority";
 
@@ -35,6 +41,7 @@ app.use(
 		},
 	})
 );
+app.use(limiter);
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
