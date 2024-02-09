@@ -7,6 +7,7 @@ var mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var catalogRouter = require("./routes/catalog");
+const compression = require("compression");
 
 const devDB =
 	"mongodb+srv://Meran:f04437B7WT163vyn@locallibrary.vgpsmoy.mongodb.net/local_library?retryWrites=true&w=majority";
@@ -28,6 +29,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
