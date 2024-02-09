@@ -107,7 +107,22 @@ exports.bookinstance_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display BookInstance update form on GET.
 exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
-	res.send("NOT IMPLEMENTED: BookInstance update GET");
+	const [bookinstance, book_list] = await Promise.all([
+		BookInstance.findById(req.params.id).exec(),
+		Book.find({}, "title").exec(),
+	]);
+
+	if (!bookinstance) {
+		const err = new Error("Book Copy not found");
+		err.status = 404;
+		next(err);
+	}
+
+	res.render("bookinstance_form", {
+		title: "Update Book Copy",
+		book_list,
+		bookinstance,
+	});
 });
 
 // Handle bookinstance update on POST.
