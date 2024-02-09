@@ -92,6 +92,15 @@ exports.author_create_post = [
 			return;
 		}
 
+		const authorExists = await Author.find({
+			first_name: req.body.first_name,
+			family_name: req.body.family_name,
+		}).exec();
+
+		if (authorExists) {
+			res.redirect(authorExists.url);
+		}
+
 		await author.save();
 		res.redirect(author.url);
 	}),
