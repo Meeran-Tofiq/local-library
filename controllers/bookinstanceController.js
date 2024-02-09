@@ -156,6 +156,7 @@ exports.bookinstance_update_post = [
 				title: "Update Book Copy",
 				bookinstance,
 				book_list,
+				errors: errors.array(),
 			});
 			return;
 		}
