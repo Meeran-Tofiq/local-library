@@ -46,6 +46,16 @@ const AuthorSchema = new Schema(
 						: " ";
 				},
 			},
+			date_of_birth_form_format: {
+				get() {
+					return DateTime.fromJSDate(this.date_of_birth).toISODate();
+				},
+			},
+			date_of_death_form_format: {
+				get() {
+					return DateTime.fromJSDate(this.date_of_death).toISODate();
+				},
+			},
 			lifespan: {
 				get() {
 					return (
