@@ -149,6 +149,12 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
 exports.author_update_get = asyncHandler(async (req, res, next) => {
 	const author = await Author.findById(req.params.id).exec();
 
+	if (!author) {
+		const err = new Error("Author not found");
+		err.status = 404;
+		next(err);
+	}
+
 	res.render("author_form", {
 		title: "Update author",
 		author,
