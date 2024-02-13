@@ -17,7 +17,7 @@ const limiter = RateLimit({
 	max: 20,
 });
 
-const mongoDB = process.env.MONGO_URI || devDB;
+const mongoDB = process.env.MONGO_URI;
 
 var app = express();
 
